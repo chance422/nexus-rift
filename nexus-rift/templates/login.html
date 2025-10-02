@@ -1,14 +1,26 @@
 {% extends "base.html" %}
-{% block title %}Login{% endblock %}
+
+{% block content %}
+<h1>Meet The Team</h1>
+<div>
+    {% for member in team %}
+        <div style="margin-bottom: 1.5em;">
+            <img src="{{ url_for('static', filename=member.image) }}" alt="{{ member.name }}" width="100" style="border-radius:50%;">
+            <h3>{{ member.name }}</h3>
+            <p>{{ member.bio }}</p>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}
+
+Login
+{% extends "base.html" %}
+
 {% block content %}
 <h1>Login</h1>
-<form method="post">
-  <label>Username:<br />
-    <input type="text" name="username" required />
-  </label><br/><br/>
-  <label>Password:<br />
-    <input type="password" name="password" required />
-  </label><br/><br/>
-  <button type="submit">Login</button>
+<form method="post" action="/login">
+    <label>Username: <input type="text" name="username" required></label><br><br>
+    <label>Password: <input type="password" name="password" required></label><br><br>
+    <button type="submit">Login</button>
 </form>
 {% endblock %}
