@@ -1,26 +1,6 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Meet The Team</h1>
-<div>
-    {% for member in team %}
-        <div style="margin-bottom: 1.5em;">
-            <img src="{{ url_for('static', filename=member.image) }}" alt="{{ member.name }}" width="100" style="border-radius:50%;">
-            <h3>{{ member.name }}</h3>
-            <p>{{ member.bio }}</p>
-        </div>
-    {% endfor %}
-</div>
-{% endblock %}
-
-Login
-{% extends "base.html" %}
-
-{% block content %}
-<h1>Login</h1>
-<form method="post" action="/login">
-    <label>Username: <input type="text" name="username" required></label><br><br>
-    <label>Password: <input type="password" name="password" required></label><br><br>
-    <button type="submit">Login</button>
-</form>
+<h1>Welcome to Nexus Rift</h1>
+<p>This is the home page.</p>
 {% endblock %}
