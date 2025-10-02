@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Create Post{% endblock %}
+{% block content %}
+<h1>Create a Post</h1>
+<form method="post" enctype="multipart/form-data">
+  <label>Select Image/Video:<br/>
+    <input type="file" name="file" accept="image/*,video/*" required />
+  </label><br/><br/>
+  <label>
+    <input type="checkbox" name="hidden" />
+    Make this post hidden (only visible to whitelisted users)
+  </label><br/><br/>
+  <button type="submit">Upload</button>
+</form>
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %}Meet the Team{% endblock %}
+{% block content %}
+<h1>Meet the Team</h1>
+
+<h2>Core Team</h2>
+<div class="team-grid">
+  {% for member in static_team %}
+    <div class="team-member">
+      <img src="{{ url_for('static', filename=member.image.split('static/')[1]) }}" alt="{{ member.name }}" />
+      <p><strong>{{ member.name }}</strong></p>
+      <p><em>{{ member.role }}</em></p>
+      <p>{{ member.bio }}</p>
+    </div>
+  {% endfor %}
+</div>
+
+<hr/>
+
+<h2>Community Contributors</h2>
+<div class="team-grid">
+  {% for username, u in users.items() %}
+    {% if u.team_member %}
+      <div class="team-member">
+        <img src="https://avatars.dicebear.com/api/initials/{{ u.userid }}.svg" alt="{{ username }}" />
+        <p><strong><a href="{{ url_for('profile', username=username) }}">{{ username }}</a></strong></p>
+        <p><em>{{ u.role }}</em></p>
+        <p>{{ u.bio or "No bio provided." }}</p>
+      </div>
+    {% endif %}
+  {% endfor %}
+</div>
+
+<style>
+.team-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin-top: 1rem;
+}
+.team-member {
+  border: 1px solid #ccc;
+  padding: 1rem;
+  text-align: center;
+  width: 180px;
+  border-radius: 8px;
+  background-color: var(--bg);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.team-member img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+</style>
+{% endblock %}

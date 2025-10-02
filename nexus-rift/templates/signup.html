@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Signup{% endblock %}
+{% block content %}
+<h1>Signup</h1>
+<form method="post">
+  <label>Username:<br />
+    <input type="text" name="username" required />
+  </label><br/><br/>
+  <label>Password:<br />
+    <input type="password" name="password" required />
+  </label><br/><br/>
+  <label>Custom 5-digit User ID (optional):<br />
+    <input type="text" name="custom_id" maxlength="5" pattern="\d{5}" />
+  </label><br/>
+  <small>If left blank, a random 5-digit ID will be assigned.</small><br/><br/>
+  <button type="submit">Signup</button>
+</form>
+{% endblock %}

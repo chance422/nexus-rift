@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Nexus Rift - {% block title %}{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+<body>
+  <nav>
+    <a href="{{ url_for('index') }}">Home</a>
+    <a href="{{ url_for('meet_the_team') }}">Meet the Team</a>
+    {% if user %}
+      <a href="{{ url_for('post') }}">Post</a>
+      {% if user.role == 'admin' %}
+        <a href="{{ url_for('admin') }}">Admin Panel</a>
+      {% endif %}
+      <a href="{{ url_for('logout') }}">Logout ({{ user.userid }})</a>
+    {% else %}
+      <a href="{{ url_for('login') }}">Login</a>
+      <a href="{{ url_for('signup') }}">Signup</a>
+    {% endif %}
+    <button id="toggle-theme">Toggle Dark/Light</button>
+  </nav>
+
+  <div class="container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <ul class="flashes">
+          {% for category, message in messages %}
+            <li class="flash-{{ category }}">{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+  </div>
+
+<script>
+  const toggleBtn = document.getElementById('toggle-theme');
+  const htmlTag = document.documentElement;
+
+  function setTheme(theme) {
+    htmlTag.setAttribute('data-theme', theme);
+    localStorage.setItem('nexus-theme', theme);
+  }
+
+  // Load saved theme or default light
+  const savedTheme = localStorage.getItem('nexus-theme') || 'light';
+  setTheme(savedTheme);
+
+  toggleBtn.addEventListener('click', () => {
+    const currentTheme = htmlTag.getAttribute('data-theme');
+    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+    setTheme(newTheme);
+  });
+</script>
+</body>
+</html>

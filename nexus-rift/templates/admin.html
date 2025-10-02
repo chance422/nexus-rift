@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Admin Panel{% endblock %}
+{% block content %}
+<h1>Admin Panel</h1>
+<p>Manage user whitelist and roles:</p>
+
+<table border="1" cellpadding="8" cellspacing="0">
+  <tr>
+    <th>Username</th>
+    <th>User ID</th>
+    <th>Role</th>
+    <th>Whitelisted View</th>
+    <th>Whitelisted Post</th>
+    <th>Actions</th>
+  </tr>
+  {% for username, u in users.items() %}
+  <tr>
+    <td>{{ username }}</td>
+    <td>{{ u.userid }}</td>
+    <td>{{ u.role }}</td>
+    <td>{{ 'Yes' if u.whitelisted_view else 'No' }}</td>
+    <td>{{ 'Yes' if u.whitelisted_post else 'No' }}</td>
+    <td>
+      <form method="post" style="display:inline;">
+        <input type="hidden" name="username" value="{{ username }}" />
+        <button type="submit" name="action" value="whitelist_view">
+          Toggle View
+        </button>
+      </form>
+      <form method="post" style="display:inline;">
+        <input type="hidden" name="username" value="{{ username }}" />
+        <button type="submit" name="action" value="whitelist_post">
+          Toggle Post
+        </button>
+      </form>
+      {% if u.role != 'admin' %}
+      <form method="post" style="display:inline;">
+        <input type="hidden" name="username" value="{{ username }}" />
+        <button type="submit" name="action" value="make_admin">
+          Make Admin
+        </button>
+      </form>
+      {% endif %}
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}
